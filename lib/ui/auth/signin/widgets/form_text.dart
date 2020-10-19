@@ -3,12 +3,13 @@ import 'package:flutter_starter_b/common/constant/VColor.dart';
 import 'package:flutter_starter_b/common/util/Validator.dart';
 
 class FormText extends StatelessWidget {
-  FormText({Key key, this.controller, this.label = "", this.icon, this.validator, this.textInputType = TextInputType.text}) : super(key: key);
+  FormText({Key key, this.controller, this.label = "", this.icon, this.validator, this.textInputType = TextInputType.text, this.maxLine}) : super(key: key);
   final TextEditingController controller;
   String label;
   final IconData icon;
   final Function validator;
   final TextInputType textInputType;
+  final int maxLine;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,7 @@ class FormText extends StatelessWidget {
             : (value) {
                 return Validator.isTextValid(value, label: label);
               },
+        maxLines: maxLine,
         keyboardType: textInputType,
         decoration: InputDecoration(
           prefixIcon: Icon(icon),

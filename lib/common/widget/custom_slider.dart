@@ -1,24 +1,22 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_starter_b/common/widget/cached_image.dart';
 
-class SliderViewPage extends StatefulWidget {
-  const SliderViewPage({Key key, this.height, this.assetPaths, this.isFromUrl = false, this.seconds = 5}) : super(key: key);
+class CustomSlider extends StatefulWidget {
+  CustomSlider({Key key, this.height, this.assetPaths, this.seconds = 10}) : super(key: key);
 
   @override
-  _SliderViewPageState createState() => _SliderViewPageState();
+  _CustomSliderState createState() => _CustomSliderState();
+
   final double height;
   final List<String> assetPaths;
-  final bool isFromUrl;
   final int seconds;
 }
 
-class _SliderViewPageState extends State<SliderViewPage> {
+class _CustomSliderState extends State<CustomSlider> {
   PageController _controller = PageController(initialPage: 0, keepPage: false);
   int currentPage = 0;
   Timer timer;
-  Duration duration;
 
   @override
   void initState() {
@@ -33,8 +31,12 @@ class _SliderViewPageState extends State<SliderViewPage> {
         nextPage = currentPage + 1;
       }
       try {
-        _controller.animateToPage(nextPage, duration: Duration(milliseconds: 1000), curve: Curves.linear);
-      } on Exception catch (e) {} catch (e) {}
+        _controller.animateToPage(nextPage, duration: Duration(milliseconds: 500), curve: Curves.linear);
+      } on Exception catch (e) {
+        print("main_dashbaord e: $e");
+      } catch (e) {
+        print("main_dashbaord catch e: $e");
+      }
     });
   }
 
@@ -72,20 +74,11 @@ class _SliderViewPageState extends State<SliderViewPage> {
                 },
                 itemCount: widget.assetPaths.length,
                 itemBuilder: (context, index) {
-                  if (widget.isFromUrl) {
-                    return CachedImage(
-                      height: widget.height,
-                      width: double.infinity,
-                      emptyImage: "no_image.png",
-                      url: widget.assetPaths[index],
-                    );
-                  } else {
-                    return Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(image: AssetImage(widget.assetPaths[index]), fit: BoxFit.cover),
-                      ),
-                    );
-                  }
+                  return Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(image: AssetImage(widget.assetPaths[index]), fit: BoxFit.cover),
+                    ),
+                  );
                 }),
           ),
           Align(

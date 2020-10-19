@@ -1,7 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_starter_b/api/model/firebase/firebase_state.dart';
+import 'package:flutter_starter_b/common/constant/VColor.dart';
 import 'package:flutter_starter_b/common/constant/VString.dart';
+import 'package:flutter_starter_b/common/util/Fun.dart';
+import 'package:flutter_starter_b/common/util/Nav.dart';
 import 'package:flutter_starter_b/common/view/comingsoon_view.dart';
+import 'package:flutter_starter_b/common/view/empty_page.dart';
+import 'package:flutter_starter_b/common/widget/custom_slider.dart';
 import 'package:flutter_starter_b/common/widget/scaffold_default.dart';
+import 'package:flutter_starter_b/ui/portofolio/model/Portofolio.dart';
+import 'package:flutter_starter_b/ui/portofolio/view/portofolio_create_page.dart';
+import 'package:flutter_starter_b/ui/portofolio/view/widgets/portofolio_item.dart';
 
 class PortofolioMainPage extends StatefulWidget {
   PortofolioMainPage({Key key}) : super(key: key);
@@ -11,6 +21,13 @@ class PortofolioMainPage extends StatefulWidget {
 }
 
 class _PortofolioMainPageState extends State<PortofolioMainPage> {
+  Portofolio model = Portofolio();
+  @override
+  void initState() {
+    super.initState();
+    model.fetch();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScaffoldDefault(
@@ -32,58 +49,55 @@ class _PortofolioMainPageState extends State<PortofolioMainPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 15),
-                Card(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                  elevation: 2.5,
-                  child: Container(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(15))),
-                    child: Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-                          child: Image.asset('assets/images/mobile_design2.jpg'),
-                        ),
-                        SizedBox(height: 15),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Column(
-                            children: [
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  "Insert title here...",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w800,
-                                    fontSize: 24,
-                                    color: Colors.grey[600],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 5),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  VString.lorem_ipsum,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w300,
-                                    fontSize: 17,
-                                    color: Colors.grey[500],
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 20),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
+                SizedBox(height: 20),
+                StreamBuilder(
+                  stream: model.state,
+                  builder: (context, snapshot) {
+                    if (snapshot.data is FirebaseState) {
+                      Fun.log.wtf("snapshot.data is FirebaseState");
+                      FirebaseState state = snapshot.data;
+                      if (state.stateCode == StateCode.LOADING) {
+                        return CircularProgressIndicator();
+                      } else {
+                        List<Portofolio> datas = state.data;
+                        if (datas.length == 0) {
+                          return EmptyPage(height: 500);
+                        }
+                        return ListView.separated(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            Portofolio data = datas[index];
+                            return PortofolioItem(portofolio: data);
+                          },
+                          separatorBuilder: (context, index) {
+                            return Container(
+                              color: Colors.grey[400],
+                              height: 0.4,
+                              margin: EdgeInsets.only(bottom: 20),
+                            );
+                          },
+                          itemCount: datas.length,
+                        );
+                      }
+                    } else {
+                      Fun.log.wtf("snapshot.data not FirebaseState");
+                      return CircularProgressIndicator();
+                    }
+                  },
+                ),
               ],
             ),
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await Nav.push(context, PortofolioCreatePage());
+          model.fetch();
+        },
+        backgroundColor: VColor.colorPrimary,
+        child: Icon(Icons.add),
       ),
     );
   }

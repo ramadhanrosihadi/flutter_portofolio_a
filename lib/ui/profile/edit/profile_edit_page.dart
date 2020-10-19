@@ -1,34 +1,22 @@
 import 'dart:io';
 
-import 'package:dio/dio.dart';
-import 'package:flushbar/flushbar_helper.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_starter_b/api/DataRequest.dart';
-import 'package:flutter_starter_b/api/DataResponse.dart';
-import 'package:flutter_starter_b/api/Urls.dart';
-import 'package:flutter_starter_b/api/model/api_event.dart';
 import 'package:flutter_starter_b/api/model/api_model.dart';
 import 'package:flutter_starter_b/api/model/api_state.dart';
-import 'package:flutter_starter_b/common/constant/VColor.dart';
 import 'package:flutter_starter_b/common/constant/VString.dart';
-import 'package:flutter_starter_b/common/constant/Var.dart';
 import 'package:flutter_starter_b/common/pref/UserPref.dart';
 import 'package:flutter_starter_b/common/util/Fun.dart';
 import 'package:flutter_starter_b/common/util/ImageUtil.dart';
-import 'package:flutter_starter_b/common/util/Nav.dart';
 import 'package:flutter_starter_b/common/widget/button_primary.dart';
 import 'package:flutter_starter_b/common/widget/cached_image.dart';
 import 'package:flutter_starter_b/common/widget/image_circle.dart';
 import 'package:flutter_starter_b/common/widget/scaffold_default.dart';
 import 'package:flutter_starter_b/common/widget/text_rounded.dart';
-import 'package:flutter_starter_b/data/Berkas.dart';
 import 'package:flutter_starter_b/data/User.dart';
 import 'package:flutter_starter_b/ui/auth/signin/widgets/form_email.dart';
 import 'package:flutter_starter_b/ui/auth/signin/widgets/form_phone.dart';
 import 'package:flutter_starter_b/ui/auth/signin/widgets/form_text.dart';
 import 'package:flutter_starter_b/ui/profile/edit/profile_edit_vm.dart';
-import 'package:image_picker/image_picker.dart';
 
 class ProfileEditPage extends StatefulWidget {
   @override

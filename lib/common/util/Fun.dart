@@ -118,4 +118,9 @@ class Fun {
       },
     );
   }
+
+  static String replaceEmpty(String value, [String replaceWith = '-']) {
+    if (value == null || value == 'null' || value == "") return replaceWith;
+    return value;
+  }
 }

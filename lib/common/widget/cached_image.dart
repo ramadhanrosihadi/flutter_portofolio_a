@@ -11,7 +11,6 @@ class CachedImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("cachedImage url: $url");
     if (url == "") {
       return Image(
         fit: BoxFit.fill,
@@ -21,7 +20,7 @@ class CachedImage extends StatelessWidget {
       );
     } else {
       return CachedNetworkImage(
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
           height: height,
           width: width,
           imageUrl: url,

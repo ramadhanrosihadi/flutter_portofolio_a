@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_starter_b/common/constant/RoutePath.dart';
@@ -10,12 +11,13 @@ import 'common/constant/VColor.dart';
 import 'common/constant/Var.dart';
 import 'common/util/Nav.dart';
 
-void main() {
+void main() async {
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     systemNavigationBarColor: VColor.colorPrimary.withOpacity(0.1),
     statusBarColor: Colors.white,
   ));
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 

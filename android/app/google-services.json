@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "385962862196",
+    "firebase_url": "https://portofolio-a.firebaseio.com",
+    "project_id": "portofolio-a",
+    "storage_bucket": "portofolio-a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385962862196:android:dbdfc0f0610e6af4805321",
+        "android_client_info": {
+          "package_name": "id.ramadhanrp.portofolioa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385962862196-qobdl3jfj0r2j7m6tr5iva66sng0ub14.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDw9S9KGi6v6uAoJjuZMlEPXy76PaIt1R4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "385962862196-qobdl3jfj0r2j7m6tr5iva66sng0ub14.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
