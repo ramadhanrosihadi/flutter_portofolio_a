@@ -11,6 +11,7 @@ import 'package:flutter_starter_b/common/widget/custom_slider.dart';
 import 'package:flutter_starter_b/common/widget/scaffold_default.dart';
 import 'package:flutter_starter_b/ui/portofolio/model/Portofolio.dart';
 import 'package:flutter_starter_b/ui/portofolio/view/portofolio_create_page.dart';
+import 'package:flutter_starter_b/ui/portofolio/view/portofolio_update_page.dart';
 import 'package:flutter_starter_b/ui/portofolio/view/widgets/portofolio_item.dart';
 
 class PortofolioMainPage extends StatefulWidget {
@@ -59,7 +60,7 @@ class _PortofolioMainPageState extends State<PortofolioMainPage> {
                       if (state.stateCode == StateCode.LOADING) {
                         return CircularProgressIndicator();
                       } else {
-                        List<Portofolio> datas = state.data;
+                        List<DocumentSnapshot> datas = state.data;
                         if (datas.length == 0) {
                           return EmptyPage(height: 500);
                         }
@@ -67,8 +68,14 @@ class _PortofolioMainPageState extends State<PortofolioMainPage> {
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
-                            Portofolio data = datas[index];
-                            return PortofolioItem(portofolio: data);
+                            Portofolio data = Portofolio().fromDoc(datas[index]);
+                            return InkWell(
+                              onTap: () async {
+                                await Nav.push(context, PortofolioUpdatePage(documentSnapshot: datas[index]));
+                                model.fetch();
+                              },
+                              child: PortofolioItem(portofolio: data),
+                            );
                           },
                           separatorBuilder: (context, index) {
                             return Container(

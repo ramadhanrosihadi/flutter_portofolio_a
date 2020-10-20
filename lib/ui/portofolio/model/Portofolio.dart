@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_starter_b/api/model/api_state.dart';
 import 'package:flutter_starter_b/api/model/firebase/firebase_state.dart';
+import 'package:flutter_starter_b/common/util/VFireStore.dart';
 
 class Portofolio {
   final String title;
@@ -117,6 +118,10 @@ class Portofolio {
     collectionReference.add(this.toMap());
   }
 
+  Portofolio fromDoc(DocumentSnapshot documentSnapshot) {
+    return Portofolio.fromMap(documentSnapshot.data());
+  }
+
   Future<List<Portofolio>> fetchFromFireStore() async {
     CollectionReference collectionReference = Firestore.instance.collection('portofolio');
     QuerySnapshot collectionSnapshot = await collectionReference.get();
@@ -132,7 +137,8 @@ class Portofolio {
 
   Future fetch() async {
     _stateController.add(FirebaseState(stateCode: StateCode.LOADING));
-    List<Portofolio> datas = await fetchFromFireStore();
+    // List<Portofolio> datas = await fetchFromFireStore();
+    List<DocumentSnapshot> datas = await VFireStore.fetchDocs('portofolio');
     _stateController.add(FirebaseState(stateCode: StateCode.SUCCESS, data: datas));
   }
 }
