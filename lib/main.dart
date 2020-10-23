@@ -6,6 +6,7 @@ import 'package:flutter_starter_b/ui/auth/signin/signin_page.dart';
 import 'package:flutter_starter_b/ui/auth/splash/splash_page.dart';
 import 'package:flutter_starter_b/ui/dashboard/dashboard_page.dart';
 import 'package:flutter_starter_b/ui/example/example_page.dart';
+import 'package:firebase/firebase.dart' as fb;
 
 import 'common/constant/VColor.dart';
 import 'common/constant/Var.dart';

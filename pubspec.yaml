@@ -28,6 +28,7 @@ dependencies:
   cupertino_icons: ^1.0.0
   device_info: ^0.4.2+8
   dio: ^3.0.10
+  firebase: ^7.3.2
   firebase_core: ^0.5.0+1
   firebase_storage: ^4.0.1
   flushbar: ^1.10.4
